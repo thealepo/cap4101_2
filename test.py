@@ -10,7 +10,7 @@ def main():
     st.subheader("Powered by Fitness Calculator API")
     st.info("Enter a city and select options to view its current weather data.")
 
-    home , bmi , bmr = st.tabs(["Home" , "BMI Calculator" , "BMR Calculator"])
+    home , bmi , bmr , dcr = st.tabs(["Home" , "BMI Calculator" , "BMR Calculator" , "Bulk/Cut Calculator"])
 
     with home:
         st.header("Home")
@@ -52,6 +52,7 @@ def main():
         st.header("BMR Calculator")
 
         unit = st.selectbox("Enter preferred units" , ("Metric (kg, m)" , "Imperial (lb, in)"))
+
         sex = st.selectbox("Enter your gender: ")
         age = st.number_input("Enter your age: " , min_value=1 , max_value=100)
         if unit == "Imperial (lb, in)":
@@ -77,6 +78,42 @@ def main():
 
             data = response.json()
             st.write(data)
+
+    with dcr:
+        st.header("Bulk/Cut Calculator")
+
+        unit = st.selectbox("Enter preferred units: " , ("Metric (kg, cm)" , "Imperial (lb, in)"))
+
+        sex = st.selectbox("Enter your sex: " , ("Male" , "Female"))
+        age = st.number_input("Enter your age: " , min_value=1 , max_value=100)
+        if unit == "Imperial (lb, in)":
+            height = st.text_input("Enter your height (in): ")
+            weight = st.text_input("Enter your weight (lbs): ")
+            height *= 2.54
+            weight *= 0.4539
+        else:
+            height = st.text_input("Enter your height (m): ")
+            weight = st.text_input("Enter your weight (kg): ")
+        level = st.select_slider("Enter your activity level: " , (
+            "Sedentary" , "Lightly Active" , "Moderately Active" , "Very Active" , "Extremely Active"
+        ))
+        goal = st.selectbox("Enter your goal: " , ("Cut" , "Maintain" , "Bulk"))
+
+        submitted = st.button("Submit")
+
+        if submitted:
+            url = "https://health-calculator-api.p.rapidapi.com/dcn"
+            querystring = {"age":age , "weight":weight , "height":height , "gender":sex , "activity_level":level , "goal":goal , "equation":"mifflin"}
+            headers = {
+                "x-rapidapi-key": "cca767f8e0mshd20a1925f71326fp10dc13jsn6f64cf7094af",
+                "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
+            }
+            response = requests.get(url, headers=headers, params=querystring)
+
+            data = response.json()
+            st.write(data)
+
+
 
 
 if __name__ == "__main__":
