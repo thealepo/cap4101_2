@@ -19,7 +19,7 @@ def main():
         st.header("BMI Calculator")
         st.subheader("The Body-Mass Index (BMI) is a tool that measures the ratio of your height and weight to estimate the amount of body fat you have. Although not the perfect tool, it is often used in conjunction with other tools to assess one's overall health status and risks of illnesses. Below you can calculate your own BMI.")
 
-        unit = st.selectbox("Enter preferred units" , ("Metric (kg, m)" , "Imperial (lb, in)"))
+        unit = st.selectbox("Enter preferred units" , options=("Metric (kg, m)" , "Imperial (lb, in)") , key=5)
         if unit == "Imperial (lb, in)":
             height = st.text_input("Enter your height (in): ")
             weight = st.text_input("Enter your weight (lbs): ")
@@ -51,7 +51,7 @@ def main():
     with bmr:
         st.header("BMR Calculator")
 
-        unit = st.selectbox("Enter preferred units" , ("Metric (kg, m)" , "Imperial (lb, in)"))
+        unit = st.selectbox("Enter preferred units" , options=("Metric (kg, m)" , "Imperial (lb, in)") , key=4)
 
         sex = st.selectbox("Enter your gender: ")
         age = st.number_input("Enter your age: " , min_value=1 , max_value=100)
@@ -82,9 +82,9 @@ def main():
     with dcr:
         st.header("Bulk/Cut Calculator")
 
-        unit = st.selectbox("Enter preferred units: " , ("Metric (kg, cm)" , "Imperial (lb, in)"))
+        unit = st.selectbox("Enter preferred units: " , options=("Metric (kg, cm)" , "Imperial (lb, in)") , key=3)
 
-        sex = st.selectbox("Enter your sex: " , ("Male" , "Female"))
+        sex = st.selectbox("Enter your sex: " , ("Male" , "Female") , key=1)
         age = st.number_input("Enter your age: " , min_value=1 , max_value=100)
         if unit == "Imperial (lb, in)":
             height = st.text_input("Enter your height (in): ")
@@ -97,7 +97,7 @@ def main():
         level = st.select_slider("Enter your activity level: " , (
             "Sedentary" , "Lightly Active" , "Moderately Active" , "Very Active" , "Extremely Active"
         ))
-        goal = st.selectbox("Enter your goal: " , ("Cut" , "Maintain" , "Bulk"))
+        goal = st.selectbox("Enter your goal: " , ("Cut" , "Maintain" , "Bulk") , key=2)
 
         submitted = st.button("Submit")
 
