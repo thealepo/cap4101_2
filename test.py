@@ -17,6 +17,7 @@ def main():
 
     with bmi:
         st.header("BMI Calculator")
+        st.subheader("The Body-Mass Index (BMI) is a tool that measures the ratio of your height and weight to estimate the amount of body fat you have. Although not the perfect tool, it is often used in conjunction with other tools to assess one's overall health status and risks of illnesses. Below you can calculate your own BMI.")
 
         unit = st.selectbox("Enter preferred units" , ("Metric (kg, m)" , "Imperial (lb, in)"))
         if unit == "Imperial (lb, in)":
@@ -38,12 +39,45 @@ def main():
             else:
                 url = "https://health-calculator-api.p.rapidapi.com/bmi"
                 querystring = {"height":height , "weight":weight , "units":"metric"}
-                headers = {"x-rapidapi-host": "health-calculator-api.p.rapidapi.com"}
+                headers = {
+                    "x-rapidapi-key": "cca767f8e0mshd20a1925f71326fp10dc13jsn6f64cf7094af",
+                    "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
+                }
                 response = requests.get(url , headers=headers , params=querystring)
 
             data = response.json()
             st.write(data)
+    
+    with bmr:
+        st.header("BMR Calculator")
+
+        unit = st.selectbox("Enter preferred units" , ("Metric (kg, m)" , "Imperial (lb, in)"))
+        sex = st.selectbox("Enter your gender: ")
+        age = st.number_input("Enter your age: " , min_value=1 , max_value=100)
+        if unit == "Imperial (lb, in)":
+            height = st.text_input("Enter your height (in): ")
+            weight = st.text_input("Enter your weight (lbs): ")
+            height *= 2.54
+            weight *= 0.4539
+        else:
+            height = st.text_input("Enter your height (m): ")
+            weight = st.text_input("Enter your weight (kg): ")
+
+        submitted = st.button("Submit")
+
+        if submitted:
+
+            url = "https://health-calculator-api.p.rapidapi.com/bmr"
+            querystring = {"age":age , "weight":weight , "height":height , "gender":sex , "equation":"mifflin"}
+            headers = {
+                "x-rapidapi-key": "cca767f8e0mshd20a1925f71326fp10dc13jsn6f64cf7094af",
+                "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
+            }
+            response = requests.get(url, headers=headers, params=querystring)
+
+            data = response.json()
+            st.write(data)
+
 
 if __name__ == "__main__":
-
     main()
