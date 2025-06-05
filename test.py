@@ -18,7 +18,7 @@ def main():
 
     with bmi:
         st.header("BMI Calculator")
-        st.subheader("The Body-Mass Index (BMI) is a tool that measures the ratio of your height and weight to estimate the amount of body fat you have. Although not the perfect tool, it is often used in conjunction with other tools to assess one's overall health status and risks of illnesses. Below you can calculate your own BMI.")
+        st.write("The Body-Mass Index (BMI) is a tool that measures the ratio of your height and weight to estimate the amount of body fat you have. Although not the perfect tool, it is often used in conjunction with other tools to assess one's overall health status and risks of illnesses. Below you can calculate your own BMI.")
 
         unit = st.selectbox("Enter preferred units" , options=("Metric (kg, m)" , "Imperial (lb, in)") , key=5)
         if unit == "Imperial (lb, in)":
@@ -88,10 +88,8 @@ def main():
         sex = st.selectbox("Enter your sex: " , ("Male" , "Female") , key=1)
         age = st.number_input("Enter your age: " , min_value=1 , max_value=100)
         if unit == "Imperial (lb, in)":
-            height = st.text_input("Enter your height (in): " , key=14)
-            weight = st.text_input("Enter your weight (lbs): " , key=15)
-            height *= 2.54
-            weight *= 0.4539
+            height = st.text_input("Enter your height (in): " , key=14) * 2.54
+            weight = st.text_input("Enter your weight (lbs): " , key=15) * 0.4539
         else:
             height = st.text_input("Enter your height (m): " , key=16)
             weight = st.text_input("Enter your weight (kg): " , key=17)
@@ -113,7 +111,6 @@ def main():
 
             data = response.json()
             st.write(data)
-
 
 
 
