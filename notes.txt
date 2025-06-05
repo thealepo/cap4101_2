@@ -3,3 +3,6 @@
 - Fix conversion problems
 - Fix lightly_active, etc
 - Fix data return problems
+
+6/5/25 @ 5:38pm
+- consider implementing macronutrient split in the DCN tab

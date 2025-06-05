@@ -11,7 +11,7 @@ def main():
     st.subheader("Powered by Health API")
     st.info("Enter a city and select options to view its current weather data.")
 
-    home , bmi , bmr , dcr = st.tabs(["Home" , "BMI Calculator" , "BMR Calculator" , "Bulk/Cut Calculator"])
+    home , bmi , bmr , dcr , thr , = st.tabs(["Home" , "BMI Calculator" , "BMR Calculator" , "Bulk/Cut Calculator" , "Target Heart Rate"])
 
     with home:
         st.header("Home")
@@ -47,7 +47,7 @@ def main():
                     "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
                 }
                 response = requests.get(url , headers=headers , params=querystring)
-                
+
             if response.status_code == 200:
                 data = response.json()
     
