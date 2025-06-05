@@ -8,7 +8,7 @@ from config import API_KEY
 def main():
     # ----- Step 1: Basic Setup and Title -----
     st.title("My Fitness App")
-    st.subheader("Powered by Fitness Calculator API")
+    st.subheader("Powered by Health API")
     st.info("Enter a city and select options to view its current weather data.")
 
     home , bmi , bmr , dcr = st.tabs(["Home" , "BMI Calculator" , "BMR Calculator" , "Bulk/Cut Calculator"])
@@ -88,8 +88,8 @@ def main():
         sex = st.selectbox("Enter your sex: " , ("Male" , "Female") , key=1)
         age = st.number_input("Enter your age: " , min_value=1 , max_value=100)
         if unit == "Imperial (lb, in)":
-            height = st.text_input("Enter your height (in): " , key=14)  # figure out metric
-            weight = st.text_input("Enter your weight (lbs): " , key=15)  # figure out metric
+            height = st.text_input("Enter your height (in): " , key=14)
+            weight = st.text_input("Enter your weight (lbs): " , key=15)
         else:
             height = st.text_input("Enter your height (m): " , key=16)
             weight = st.text_input("Enter your weight (kg): " , key=17)
@@ -98,23 +98,27 @@ def main():
         ) , value="Moderately Active")
         goal = st.selectbox("Enter your goal: " , ("Cut" , "Maintain" , "Bulk") , index=1, key=2)
 
-        if level == "Sedentary":
-            level = "sedentary"
-        elif level == "Lightly Active":
-            level = "lightly_active"
-        elif level == "Moderately Active":
-            level = "moderately_active"
-        elif level == "Very Active":
-            level = "very_active"
-        else:
-            level = "extra_active"
-        
-        if goal == "Cut":
-            goal = "weight_loss"
-        elif goal == "Maintain":
-            goal = "maintenance"
-        else:
-            goal = "weight_gain"
+        height = float(height) ; weight = float(weight)
+        if unit == "Imperial (lb, in)":
+            height *= 2.54
+            weight *= 0.4536
+
+        level_map = {
+            "Sedentary": "sedentary",
+            "Lightly Active": "lightly_active",
+            "Moderately Active": "moderately_active",
+            "Very Active": "very_active",
+            "Extremely Active": "extra_active"
+        }
+        level = level_map.get(level)
+
+        goal_map = {
+            "Cut": "weight_loss",
+            "Maintain": "maintenance",
+            "Bulk": "weight_gain"
+        }
+        goal = goal_map.get(goal)
+
 
         submitted = st.button("Submit" , key=18)
 
@@ -127,9 +131,8 @@ def main():
             }
             response = requests.get(url, headers=headers, params=querystring)
 
-            data = response.json()
-            st.write(data)
-
+            if response.status_code == 200:
+                data = response.json()
 
 
 if __name__ == "__main__":
