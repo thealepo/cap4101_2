@@ -88,15 +88,33 @@ def main():
         sex = st.selectbox("Enter your sex: " , ("Male" , "Female") , key=1)
         age = st.number_input("Enter your age: " , min_value=1 , max_value=100)
         if unit == "Imperial (lb, in)":
-            height = st.text_input("Enter your height (in): " , key=14) * 2.54
-            weight = st.text_input("Enter your weight (lbs): " , key=15) * 0.4539
+            height = st.text_input("Enter your height (in): " , key=14)  # figure out metric
+            weight = st.text_input("Enter your weight (lbs): " , key=15)  # figure out metric
         else:
             height = st.text_input("Enter your height (m): " , key=16)
             weight = st.text_input("Enter your weight (kg): " , key=17)
         level = st.select_slider("Enter your activity level: " , (
             "Sedentary" , "Lightly Active" , "Moderately Active" , "Very Active" , "Extremely Active"
-        ))
-        goal = st.selectbox("Enter your goal: " , ("Cut" , "Maintain" , "Bulk") , key=2)
+        ) , value="Moderately Active")
+        goal = st.selectbox("Enter your goal: " , ("Cut" , "Maintain" , "Bulk") , index=1, key=2)
+
+        if level == "Sedentary":
+            level = "sedentary"
+        elif level == "Lightly Active":
+            level = "lightly_active"
+        elif level == "Moderately Active":
+            level = "moderately_active"
+        elif level == "Very Active":
+            level = "very_active"
+        else:
+            level = "extra_active"
+        
+        if goal == "Cut":
+            goal = "weight_loss"
+        elif goal == "Maintain":
+            goal = "maintenance"
+        else:
+            goal = "weight_gain"
 
         submitted = st.button("Submit" , key=18)
 
