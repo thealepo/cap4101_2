@@ -20,13 +20,15 @@ def main():
         st.header("BMI Calculator")
         st.write("The Body-Mass Index (BMI) is a tool that measures the ratio of your height and weight to estimate the amount of body fat you have. Although not the perfect tool, it is often used in conjunction with other tools to assess one's overall health status and risks of illnesses. Below you can calculate your own BMI.")
 
-        unit = st.selectbox("Enter preferred units" , options=("Metric (kg, m)" , "Imperial (lb, in)") , key=5)
+        unit = st.selectbox("Enter preferred units" , options=("Metric (kg, cm)" , "Imperial (lb, in)") , key=5)
         if unit == "Imperial (lb, in)":
             height = st.text_input("Enter your height (in): " , key=6)
             weight = st.text_input("Enter your weight (lbs): " , key=7)
         else:
-            height = st.text_input("Enter your height (m): " , key=8)
+            height = st.text_input("Enter your height (cm): " , key=8)
             weight = st.text_input("Enter your weight (kg): " , key=9)
+
+        height = float(height) ; weight = float(weight)
         
         submitted = st.button("Submit" , key=20)
         
@@ -45,25 +47,25 @@ def main():
                     "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
                 }
                 response = requests.get(url , headers=headers , params=querystring)
-
-            data = response.json()
-            st.write(data)
+                
+            if response.status_code == 200:
+                data = response.json()
     
     with bmr:
         st.header("BMR Calculator")
 
-        unit = st.selectbox("Enter preferred units" , options=("Metric (kg, m)" , "Imperial (lb, in)") , key=4)
+        unit = st.selectbox("Enter preferred units" , options=("Metric (kg, cm)" , "Imperial (lb, in)") , key=4)
 
         sex = st.selectbox("Enter your sex: " , ("Male" , "Female") , key=21)
-        age = st.number_input("Enter your age: " , min_value=1 , max_value=100 , key=22)
+        age = st.number_input("Enter your age: " , min_value=1 , max_value=100 , value=25 , key=22)
         if unit == "Imperial (lb, in)":
             height = st.text_input("Enter your height (in): " , key=10)
             weight = st.text_input("Enter your weight (lbs): " , key=11)
-            height *= 2.54
-            weight *= 0.4539
         else:
-            height = st.text_input("Enter your height (m): " , key=12)
+            height = st.text_input("Enter your height (cm): " , key=12)
             weight = st.text_input("Enter your weight (kg): " , key=13)
+
+        height = float(height) ; weight = float(weight)
 
         submitted = st.button("Submit" , key=19)
 
@@ -77,8 +79,8 @@ def main():
             }
             response = requests.get(url, headers=headers, params=querystring)
 
-            data = response.json()
-            st.write(data)
+            if response.status_code == 200:
+                data = response.json()
 
     with dcr:
         st.header("Bulk/Cut Calculator")
@@ -91,7 +93,7 @@ def main():
             height = st.text_input("Enter your height (in): " , key=14)
             weight = st.text_input("Enter your weight (lbs): " , key=15)
         else:
-            height = st.text_input("Enter your height (m): " , key=16)
+            height = st.text_input("Enter your height (cm): " , key=16)
             weight = st.text_input("Enter your weight (kg): " , key=17)
         level = st.select_slider("Enter your activity level: " , (
             "Sedentary" , "Lightly Active" , "Moderately Active" , "Very Active" , "Extremely Active"
