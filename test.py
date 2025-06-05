@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import requests
+from config import API_KEY
 
 
 def main():
@@ -21,13 +22,13 @@ def main():
 
         unit = st.selectbox("Enter preferred units" , options=("Metric (kg, m)" , "Imperial (lb, in)") , key=5)
         if unit == "Imperial (lb, in)":
-            height = st.text_input("Enter your height (in): ")
-            weight = st.text_input("Enter your weight (lbs): ")
+            height = st.text_input("Enter your height (in): " , key=6)
+            weight = st.text_input("Enter your weight (lbs): " , key=7)
         else:
-            height = st.text_input("Enter your height (m): ")
-            weight = st.text_input("Enter your weight (kg): ")
+            height = st.text_input("Enter your height (m): " , key=8)
+            weight = st.text_input("Enter your weight (kg): " , key=9)
         
-        submitted = st.button("Submit")
+        submitted = st.button("Submit" , key=20)
         
         if submitted:
 
@@ -40,7 +41,7 @@ def main():
                 url = "https://health-calculator-api.p.rapidapi.com/bmi"
                 querystring = {"height":height , "weight":weight , "units":"metric"}
                 headers = {
-                    "x-rapidapi-key": "cca767f8e0mshd20a1925f71326fp10dc13jsn6f64cf7094af",
+                    "x-rapidapi-key": API_KEY,
                     "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
                 }
                 response = requests.get(url , headers=headers , params=querystring)
@@ -53,25 +54,25 @@ def main():
 
         unit = st.selectbox("Enter preferred units" , options=("Metric (kg, m)" , "Imperial (lb, in)") , key=4)
 
-        sex = st.selectbox("Enter your gender: ")
-        age = st.number_input("Enter your age: " , min_value=1 , max_value=100)
+        sex = st.selectbox("Enter your sex: " , ("Male" , "Female") , key=21)
+        age = st.number_input("Enter your age: " , min_value=1 , max_value=100 , key=22)
         if unit == "Imperial (lb, in)":
-            height = st.text_input("Enter your height (in): ")
-            weight = st.text_input("Enter your weight (lbs): ")
+            height = st.text_input("Enter your height (in): " , key=10)
+            weight = st.text_input("Enter your weight (lbs): " , key=11)
             height *= 2.54
             weight *= 0.4539
         else:
-            height = st.text_input("Enter your height (m): ")
-            weight = st.text_input("Enter your weight (kg): ")
+            height = st.text_input("Enter your height (m): " , key=12)
+            weight = st.text_input("Enter your weight (kg): " , key=13)
 
-        submitted = st.button("Submit")
+        submitted = st.button("Submit" , key=19)
 
         if submitted:
 
             url = "https://health-calculator-api.p.rapidapi.com/bmr"
             querystring = {"age":age , "weight":weight , "height":height , "gender":sex , "equation":"mifflin"}
             headers = {
-                "x-rapidapi-key": "cca767f8e0mshd20a1925f71326fp10dc13jsn6f64cf7094af",
+                "x-rapidapi-key": API_KEY,
                 "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
             }
             response = requests.get(url, headers=headers, params=querystring)
@@ -87,25 +88,25 @@ def main():
         sex = st.selectbox("Enter your sex: " , ("Male" , "Female") , key=1)
         age = st.number_input("Enter your age: " , min_value=1 , max_value=100)
         if unit == "Imperial (lb, in)":
-            height = st.text_input("Enter your height (in): ")
-            weight = st.text_input("Enter your weight (lbs): ")
+            height = st.text_input("Enter your height (in): " , key=14)
+            weight = st.text_input("Enter your weight (lbs): " , key=15)
             height *= 2.54
             weight *= 0.4539
         else:
-            height = st.text_input("Enter your height (m): ")
-            weight = st.text_input("Enter your weight (kg): ")
+            height = st.text_input("Enter your height (m): " , key=16)
+            weight = st.text_input("Enter your weight (kg): " , key=17)
         level = st.select_slider("Enter your activity level: " , (
             "Sedentary" , "Lightly Active" , "Moderately Active" , "Very Active" , "Extremely Active"
         ))
         goal = st.selectbox("Enter your goal: " , ("Cut" , "Maintain" , "Bulk") , key=2)
 
-        submitted = st.button("Submit")
+        submitted = st.button("Submit" , key=18)
 
         if submitted:
             url = "https://health-calculator-api.p.rapidapi.com/dcn"
             querystring = {"age":age , "weight":weight , "height":height , "gender":sex , "activity_level":level , "goal":goal , "equation":"mifflin"}
             headers = {
-                "x-rapidapi-key": "cca767f8e0mshd20a1925f71326fp10dc13jsn6f64cf7094af",
+                "x-rapidapi-key": API_KEY,
                 "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
             }
             response = requests.get(url, headers=headers, params=querystring)
