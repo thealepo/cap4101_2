@@ -28,6 +28,9 @@ def main():
             weight = st.number_input("Enter your weight (kg): " , key=5)
 
         height = float(height) ; weight = float(weight)
+        if unit == "Imperial (lb, in)":
+            height *= 2.54
+            weight *= 0.4536
 
         if user == "Advanced":
             if unit == "Imperial (lb, in)":
@@ -37,6 +40,51 @@ def main():
                 waist = st.number_input("Enter your waist circumference (cm): " , key=8)
                 wrist = st.number_input("Enter your wrist circumference (cm): " , key=9)
             
-            waist = float(waist) , wrist = float(wrist)
+            waist = float(waist) ; wrist = float(wrist)
+            if unit == "Imperial (lb, in)":
+                waist *= 2.54 ; wrist *= 2.54
 
             submitted = st.button("Submit" , key=10)
+
+            if submitted:
+
+                url_bfsi = "https://health-calculator-api.p.rapidapi.com/bfsi"
+                querystring_bfsi = {"sex":sex,"height":height,"wrist":wrist}
+                headers_ibw = {
+                    "x-rapidapi-key": API_KEY,
+                    "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
+                }
+                response_bfsi = requests.get(url_bfsi, headers=headers_ibw, params=querystring_bfsi)
+                data_bfsi = response_bfsi.json()
+
+                bfsi = data_bfsi['BFSI']
+                frame = data_bfsi['Frame Size']
+
+                url_ibw = "https://health-calculator-api.p.rapidapi.com/ibw"
+                querystring_ibw = {"height":height,"body_frame":frame,"gender":sex,"formula":"hamwi"}
+                headers_ibw = {
+                    "x-rapidapi-key": API_KEY,
+                    "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
+                }
+                response_ibw = requests.get(url_ibw, headers=headers_ibw, params=querystring_ibw)
+                data_ibw = response_ibw.json()
+
+                ideal_weight = data_ibw['ideal_weight']
+
+                url_absi = "https://health-calculator-api.p.rapidapi.com/absi"
+                querystring_absi = {"sex":sex,"age":age,"height":height,"weight":weight,"waist_circumference":waist,"unit":"metric"}
+                headers_absi = {
+                "x-rapidapi-key": API_KEY,
+                "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
+                }
+                response_absi = requests.get(url_absi, headers=headers_absi, params=querystring_absi)
+                data_absi = response_absi.json()
+
+                absi = data_absi['ABSI']
+                z_score = data_absi['ABSI z-score']
+                mortality = data_absi['Mortality risk']
+
+
+
+
+
