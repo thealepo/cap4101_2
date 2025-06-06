@@ -7,3 +7,19 @@
 6/5/25 @ 5:38pm
 - consider implementing macronutrient split in the DCN tab
 - consider implementing BMR into DCN tab (make it one huge important tab)
+
+LIST FOR AUTO POWERED:
+1. you need to define the person's bmi and other aspects to determine if they must lose, maintain, or gain weight
+    - BMI
+    - IBW
+    - ABSI (optional)
+    - BFP
+    note: BFP contains a BMI calculator within
+    note: should make a simple & advanced version (using st.radio)
+
+SIMPLE: 
+    - 
+ADVANCED:
+    - ABSI (waist_circumference)
+    - BFSI (wrist_circumference) (gives frame)
+    - IBW (using frame obtained from BFSI)
