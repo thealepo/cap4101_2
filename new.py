@@ -50,11 +50,11 @@ def main():
 
                 url_bfsi = "https://health-calculator-api.p.rapidapi.com/bfsi"
                 querystring_bfsi = {"sex":sex,"height":height,"wrist":wrist}
-                headers_ibw = {
+                headers_bfsi = {
                     "x-rapidapi-key": API_KEY,
                     "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
                 }
-                response_bfsi = requests.get(url_bfsi, headers=headers_ibw, params=querystring_bfsi)
+                response_bfsi = requests.get(url_bfsi, headers=headers_bfsi, params=querystring_bfsi)
                 data_bfsi = response_bfsi.json()
 
                 bfsi = data_bfsi['BFSI']
@@ -83,6 +83,18 @@ def main():
                 absi = data_absi['ABSI']
                 z_score = data_absi['ABSI z-score']
                 mortality = data_absi['Mortality risk']
+
+                url_bmi = "https://health-calculator-api.p.rapidapi.com/bmi"
+                querystring_bmi = {"height":"170","weight":"80","units":"metric"}
+                headers_bmi = {
+                    "x-rapidapi-key": "cca767f8e0mshd20a1925f71326fp10dc13jsn6f64cf7094af",
+                    "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
+                }
+                response_bmi = requests.get(url_bmi , headers=headers_bmi , params=querystring_bmi)
+                data_bmi = response_bmi.json()
+
+                bmi = data_bmi['bmi']
+                weight_status = data_bmi['weight_status']
 
 
 
