@@ -11,7 +11,7 @@ def main():
     st.subheader("Powered by Health API")
     st.info("Enter a city and select options to view its current weather data.")
 
-    home , bmi , bmr , dcr , thr , = st.tabs(["Home" , "BMI Calculator" , "BMR Calculator" , "Bulk/Cut Calculator" , "Target Heart Rate"])
+    home , bmi , bmr , dcr , thr = st.tabs(["Home" , "BMI Calculator" , "BMR Calculator" , "Bulk/Cut Calculator" , "Target Heart Rate"])
 
     with home:
         st.header("Home")
@@ -135,6 +135,14 @@ def main():
 
             if response.status_code == 200:
                 data = response.json()
+                
+                user_calories = data['calories']
+                user_goal = data['goal']
+                user_goal = dict(zip(goal_map.values(),goal_map.keys()))
+
+                st.write(f"**Goal:** {user_goal}")
+                st.write(f"**Calories:** {user_calories}")
+                
 
 
 if __name__ == "__main__":

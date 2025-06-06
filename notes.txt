@@ -6,3 +6,4 @@
 
 6/5/25 @ 5:38pm
 - consider implementing macronutrient split in the DCN tab
+- consider implementing BMR into DCN tab (make it one huge important tab)
