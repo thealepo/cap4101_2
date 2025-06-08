@@ -28,3 +28,6 @@ ADVANCED:
 6/6/25
 PLAN FOR AI IMPLEMENTATION:
     - create an SVM model for classification using the features = [BFSI , ABSI , ABSI z-score , mortality , bmi , weight_status] to predict whether or not a person must Lose Weight , Maintain , or Gain Waight. Considering also using their Current Weight and Ideal BodyWeight as features. Do not know where to get data from, might have to create my own, but its more about the principle of using ML to aide the use of the tool by beginners.
+
+6/8/25
+    - ML Implementation may take a while, and due to due date I will use normal if-else statements
