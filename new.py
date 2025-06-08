@@ -87,7 +87,7 @@ def main():
                 url_bmi = "https://health-calculator-api.p.rapidapi.com/bmi"
                 querystring_bmi = {"height":"170","weight":"80","units":"metric"}
                 headers_bmi = {
-                    "x-rapidapi-key": "cca767f8e0mshd20a1925f71326fp10dc13jsn6f64cf7094af",
+                    "x-rapidapi-key": API_KEY,
                     "x-rapidapi-host": "health-calculator-api.p.rapidapi.com"
                 }
                 response_bmi = requests.get(url_bmi , headers=headers_bmi , params=querystring_bmi)
@@ -96,7 +96,10 @@ def main():
                 bmi = data_bmi['bmi']
                 weight_status = data_bmi['weight_status']
 
-
+                recommended_goal = ""
+                if bmi > 24.99 and weight > ideal_weight:
+                    recommended_goal = "lose_weight"
+                    
 
 
 

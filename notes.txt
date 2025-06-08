@@ -31,3 +31,5 @@ PLAN FOR AI IMPLEMENTATION:
 
 6/8/25
     - ML Implementation may take a while, and due to due date I will use normal if-else statements
+    - Advanced: DCN , DWI , Macronutrient Distribution
+    - Basic: DCN
